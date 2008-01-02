@@ -15,6 +15,7 @@ BuildRequires:	e2fsprogs-devel
 BuildRequires:	zlib-devel
 BuildRequires:	autoconf
 BuildRequires:	libtool
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Libewf is a library for support of the Expert Witness Compression Format (EWF),
