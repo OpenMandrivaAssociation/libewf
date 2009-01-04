@@ -4,8 +4,8 @@
 
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
-Version:	20070512
-Release:	%mkrel 3
+Version:	20080501
+Release:	%mkrel 1
 Group:		System/Libraries
 License:	BSD
 URL:		https://www.uitwisselplatform.nl/projects/libewf/
@@ -90,7 +90,7 @@ export CFLAGS="%{optflags} -fPIC"
 
 %files -n %{libname}
 %defattr(-,root,root)
-%doc AUTHORS COPYING ChangeLog NEWS TESTS
+%doc AUTHORS COPYING ChangeLog NEWS
 %{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
