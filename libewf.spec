@@ -4,12 +4,12 @@
 
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
-Version:	20080501
-Release:	%mkrel 2
+Version:	20100126
+Release:	%mkrel 1
 Group:		System/Libraries
 License:	BSD
-URL:		https://www.uitwisselplatform.nl/projects/libewf/
-Source0:	https://www.uitwisselplatform.nl/frs/download.php/303/%{name}-%{version}.tar.gz
+URL:		http://libewf.sourceforge.net/
+Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{name}-%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	openssl-devel
 BuildRequires:	e2fsprogs-devel
 BuildRequires:	zlib-devel
@@ -82,7 +82,7 @@ export CFLAGS="%{optflags} -fPIC"
 %defattr(-,root,root)
 %{_bindir}/ewfacquire
 %{_bindir}/ewfacquirestream
-%{_bindir}/ewfalter
+#%{_bindir}/ewfalter
 %{_bindir}/ewfexport
 %{_bindir}/ewfinfo
 %{_bindir}/ewfverify
