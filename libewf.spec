@@ -1,21 +1,20 @@
-%define	major 1
+%define	major 2
 %define libname	%mklibname ewf %{major}
 %define develname %mklibname -d ewf
 
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
-Version:	20100126
-Release:	%mkrel 3
+Version:	20120813
+Release:	%mkrel 1
 Group:		System/Libraries
 License:	BSD
 URL:		http://libewf.sourceforge.net/
 Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{name}-%{version}/%{name}-%{version}.tar.gz
-BuildRequires:	openssl-devel
-BuildRequires:	e2fsprogs-devel
-BuildRequires:	zlib-devel
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(ext2fs)
+BuildRequires:	pkgconfig(zlib)
 BuildRequires:	autoconf
 BuildRequires:	libtool
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Libewf is a library for support of the Expert Witness Compression Format (EWF),
@@ -52,52 +51,37 @@ This package contains the static libewf library and its header files.
 %setup -q
 
 %build
-export WANT_AUTOCONF_2_5=1
-rm -f configure
-libtoolize --copy --force; aclocal; autoconf --force; autoheader; automake
+#export WANT_AUTOCONF_2_5=1
+#rm -f configure
+#libtoolize --copy --force; aclocal; autoconf --force; autoheader; automake
 
 export CFLAGS="%{optflags} -fPIC"
 
-%configure2_5x
+%configure2_5x --disable-static
 
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %makeinstall_std
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %{_bindir}/ewfacquire
 %{_bindir}/ewfacquirestream
 #%{_bindir}/ewfalter
 %{_bindir}/ewfexport
 %{_bindir}/ewfinfo
 %{_bindir}/ewfverify
+%{_bindir}/ewfmount
+%{_bindir}/ewfdebug
+%{_bindir}/ewfrecover
 %{_mandir}/man1/*
 
 %files -n %{libname}
-%defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog NEWS
 %{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/*.a
-%{_libdir}/*.la
 %{_libdir}/pkgconfig/*.pc
 %{_mandir}/man3/*
