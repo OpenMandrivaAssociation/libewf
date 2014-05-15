@@ -4,12 +4,12 @@
 
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
-Version:	20120813
-Release:	%mkrel 1
+Version:	20140227
+Release:	1
 Group:		System/Libraries
 License:	BSD
 URL:		http://libewf.sourceforge.net/
-Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source0:	https://googledrive.com/host/0B3fBvzttpiiSMTdoaVExWWNsRjg/%{name}-%{version}.tar.gz
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(zlib)
