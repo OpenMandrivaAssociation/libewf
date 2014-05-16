@@ -13,6 +13,8 @@ Source0:	https://googledrive.com/host/0B3fBvzttpiiSMTdoaVExWWNsRjg/%{name}-%{ver
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	python-devel
+BuildRequires:	gettext-devel
 BuildRequires:	autoconf
 BuildRequires:	libtool
 
@@ -57,6 +59,9 @@ This package contains the static libewf library and its header files.
 
 export CFLAGS="%{optflags} -fPIC"
 
+sed -i 's/-Werror//g' configure m4/*
+autoreconf -fiv
+libtoolize --copy --force; aclocal; autoconf --force; autoheader; automake
 %configure2_5x --disable-static
 
 %make
