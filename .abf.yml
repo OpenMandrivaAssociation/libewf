@@ -1,5 +1,6 @@
 removed_sources:
   libewf-20120813.tar.gz: a8226c42dd55022569b8234fba997f8bd40b9303
   libewf-20140227.tar.gz: a8be4c9b3a89c8400a3cae8b2419da583185a7e0
-sources:
   libewf-20140427.tar.gz: 86af91b3357d0cb78cfbe0c2356ccb3e1c8236e9
+sources:
+  libewf-20140608.tar.gz: c17384a3d2c1d63bd5b1aaa2aead6ee3c82a2368
