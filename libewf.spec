@@ -2,6 +2,9 @@
 %define libname	%mklibname ewf %{major}
 %define develname %mklibname -d ewf
 
+%define _disable_rebuild_configure 1
+%define _disable_lto 1
+
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
 Version:	20140608
@@ -53,15 +56,8 @@ This package contains the static libewf library and its header files.
 %setup -q
 
 %build
-#export WANT_AUTOCONF_2_5=1
-#rm -f configure
-#libtoolize --copy --force; aclocal; autoconf --force; autoheader; automake
+export CFLAGS="%{optflags} -fPIC -std=gnu89"
 
-export CFLAGS="%{optflags} -fPIC"
-
-sed -i 's/-Werror//g' configure m4/*
-autoreconf -fiv
-libtoolize --copy --force; aclocal; autoconf --force; autoheader; automake
 %configure2_5x --disable-static
 
 %make
