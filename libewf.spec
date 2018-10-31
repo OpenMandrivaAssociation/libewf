@@ -8,7 +8,7 @@
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
 Version:	20140608
-Release:	6
+Release:	7
 Group:		System/Libraries
 License:	BSD
 URL:		http://libewf.sourceforge.net/
