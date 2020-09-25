@@ -8,10 +8,10 @@
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
 Version:	20140608
-Release:	7
+Release:	8
 Group:		System/Libraries
 License:	BSD
-URL:		http://libewf.sourceforge.net/
+URL:		https://github.com/libyal/libewf
 Source0:	https://googledrive.com/host/0B3fBvzttpiiSMTdoaVExWWNsRjg/%{name}-%{version}.tar.gz
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(ext2fs)
@@ -52,18 +52,15 @@ Libewf allows you to read and write media information within the EWF files.
 This package contains the static libewf library and its header files.
 
 %prep
-
-%setup -q
+%autosetup -p1
 
 %build
 export CFLAGS="%{optflags} -fPIC -std=gnu89"
-
-%configure2_5x --disable-static
-
-%make
+%configure --disable-static
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 %files
 %{_bindir}/ewfacquire
