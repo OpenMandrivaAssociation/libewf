@@ -1,22 +1,23 @@
-%define	major 2
-%define libname	%mklibname ewf %{major}
+%define major 2
+%define libname %mklibname ewf %{major}
 %define develname %mklibname -d ewf
 
+%global optflags %{optflags} -fPIC -std=gnu89
 %define _disable_rebuild_configure 1
 %define _disable_lto 1
 
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
 Version:	20140608
-Release:	7
+Release:	8
 Group:		System/Libraries
 License:	BSD
-URL:		http://libewf.sourceforge.net/
+URL:		https://github.com/libyal/libewf
 Source0:	https://googledrive.com/host/0B3fBvzttpiiSMTdoaVExWWNsRjg/%{name}-%{version}.tar.gz
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	python-devel
+BuildRequires:	pkgconfig(python)
 BuildRequires:	gettext-devel
 BuildRequires:	autoconf
 BuildRequires:	libtool
@@ -29,22 +30,22 @@ Libewf allows you to read and write media information within the EWF files.
 This package contains utils for use with the Expert Witness Compression Format
 (EWF).
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	The Expert Witness Compression Format (EWF) shared library
-Group:          System/Libraries
+Group:		System/Libraries
 
-%description -n	%{libname}
+%description -n %{libname}
 Libewf is a library for support of the Expert Witness Compression Format (EWF),
 it support both the SMART format (EWF-S01) and the EnCase format (EWF-E01).
 Libewf allows you to read and write media information within the EWF files.
 
-%package -n	%{develname}
+%package -n %{develname}
 Summary:	Static library and header files for the libewf library
 Group:		Development/C
 Provides:	%{name}-devel = %{version}
 Requires:	%{libname} = %{version}
 
-%description -n	%{develname}
+%description -n %{develname}
 Libewf is a library for support of the Expert Witness Compression Format (EWF),
 it support both the SMART format (EWF-S01) and the EnCase format (EWF-E01).
 Libewf allows you to read and write media information within the EWF files.
@@ -52,37 +53,41 @@ Libewf allows you to read and write media information within the EWF files.
 This package contains the static libewf library and its header files.
 
 %prep
-
-%setup -q
+%autosetup -p1
 
 %build
-export CFLAGS="%{optflags} -fPIC -std=gnu89"
+%configure \
+    --enable-wide-character-type
 
-%configure2_5x --disable-static
+# Remove rpath from libtool
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-%make
+# clean unused-direct-shlib-dependencies
+sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
+
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 %files
 %{_bindir}/ewfacquire
 %{_bindir}/ewfacquirestream
-#%{_bindir}/ewfalter
 %{_bindir}/ewfexport
 %{_bindir}/ewfinfo
 %{_bindir}/ewfverify
 %{_bindir}/ewfmount
 %{_bindir}/ewfdebug
 %{_bindir}/ewfrecover
-%{_mandir}/man1/*
+%doc %{_mandir}/man1/*
 
 %files -n %{libname}
-%doc AUTHORS COPYING ChangeLog NEWS
 %{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
+%doc AUTHORS COPYING ChangeLog NEWS
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
-%{_mandir}/man3/*
+%doc %{_mandir}/man3/*
