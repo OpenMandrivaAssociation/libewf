@@ -12,7 +12,7 @@ Release:	1
 Group:		System/Libraries
 License:	BSD
 URL:		https://github.com/libyal/libewf
-Source0:	https://googledrive.com/host/0B3fBvzttpiiSMTdoaVExWWNsRjg/%{name}-%{version}.tar.gz
+Source0:	https://github.com/libyal/libewf/releases/download/%{version}/libewf-experimental-%{version}.tar.gz
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(zlib)
@@ -52,11 +52,11 @@ Libewf allows you to read and write media information within the EWF files.
 This package contains the static libewf library and its header files.
 
 %prep
-%autosetup -p1
+%autosetup -n %{name}-experimental-%{version} -p1
 
 %build
 export CFLAGS="%{optflags} -fPIC -std=gnu89"
-./autogen.sh
+#./autogen.sh
 %configure --disable-static
 %make_build
 
