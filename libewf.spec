@@ -52,7 +52,7 @@ Libewf allows you to read and write media information within the EWF files.
 This package contains the static libewf library and its header files.
 
 %prep
-%autosetup -n %{name}-experimental-%{version} -p1
+%autosetup -p1
 
 %build
 export CFLAGS="%{optflags} -fPIC -std=gnu89"
