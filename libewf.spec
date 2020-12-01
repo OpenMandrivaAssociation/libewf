@@ -55,7 +55,7 @@ This package contains the static libewf library and its header files.
 %autosetup -p1
 
 %build
-export CFLAGS="%{optflags} -fPIC -std=gnu89"
+#export CFLAGS="%{optflags} -fPIC -std=gnu89"
 #./autogen.sh
 %configure --disable-static
 %make_build
