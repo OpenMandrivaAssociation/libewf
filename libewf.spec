@@ -9,12 +9,12 @@
 Summary:	Utils for use with the Expert Witness Compression Format (EWF)
 Name:		libewf
 Version:	20140608
-Release:	8
+Release:	9
 Group:		System/Libraries
 License:	BSD
 URL:		https://github.com/libyal/libewf
 Source0:	https://googledrive.com/host/0B3fBvzttpiiSMTdoaVExWWNsRjg/%{name}-%{version}.tar.gz
-BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(uuid)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(python)
